@@ -11,6 +11,7 @@ class User(Base):
     email = Column(String, unique = True, index = True, nullable = False)
     nombre = Column(String, nullable = False)
     apellido = Column(String, nullable = False)
+    password = Column(String, nullable=False) 
     is_active = Column(Boolean, default = True)
 
     debts = relationship("Debt", back_populates = "user", cascade="all, delete-orphan")

@@ -33,19 +33,16 @@ class UserRepository:
 
         return db_user
     
-    def create(self, user_data: CreateUser) -> User:
+    def create(self, user_data: dict) -> User:
 
-        db_user = User(
-            email = user_data.email,
-            nombre = user_data.nombre,
-            apellido = user_data.apellido
-        )
-
-        self.db.add(db_user)      # Agrega a la sesión
-        self.db.commit()          # Guarda en la BD
-        self.db.refresh(db_user)  # Refresca para obtener el ID
-
-        return db_user
+        # Crear User desde dict usando **
+        user = User(**user_data)
+        
+        self.db.add(user)
+        self.db.commit()
+        self.db.refresh(user)
+        
+        return user
     
     def update(self, user_id: int, user_data: UpdateUser) -> Optional[User]:
 
